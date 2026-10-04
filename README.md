@@ -1,5 +1,7 @@
 # ConnectFour Studio
 
+*Open-source Connect Four with 15 levels, 20 boards, tournament mode, match statistics and perfect real-time analysis.*
+
 ![ConnectFour Studio](screenshot-1.png)
 
 A free, offline desktop program for Connect Four — play against the computer,
