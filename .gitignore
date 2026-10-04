@@ -1,0 +1,21 @@
+# venv + Bytecode
+.venv/
+__pycache__/
+*.pyc
+
+# Backups
+*.bak-*
+
+# Logs / Turnier-Artefakte
+elo_run/log/
+elo_run/backup/
+elo_run/*.jsonl
+
+# Nutzereinstellungen (Startsprache, zuletzt gemerkt)
+data/lang.cfg
+
+# Spielstände (Beispiele bleiben, eigene nicht committen)
+/quicksave.4gp
+
+# Env (lokal, nie committen)
+.env*
