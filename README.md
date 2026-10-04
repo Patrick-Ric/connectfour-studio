@@ -21,13 +21,33 @@ analyze positions, and run engine-vs-engine matches.
 
 ## Install & Start
 
+Requires 64-bit Python 3.10–3.14 **with Tkinter** (`bitbully` ships
+wheels for CPython 3.10–3.14 on 64-bit Windows/Linux; other
+platforms need a C++ build from source).
+
+- **Windows:** the python.org installer includes Tkinter by default —
+  keep `tcl/tk and IDLE` checked during installation. No extra step needed.
+- **Linux:** Tkinter is often a separate package. Quick check:
+  `python3 -c "import tkinter"`. If that fails:
+  `sudo apt install python3-tk` (Debian/Ubuntu/Mint),
+  `sudo dnf install python3-tkinter` (Fedora),
+  `sudo pacman -S tk` (Arch).
+
+Linux/macOS:
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/python connectfour_studio.py
 ```
 
-Requirements: Python 3.10+, Tkinter 8.6+ (usually included with Python).
+Windows (PowerShell or cmd):
+
+```bat
+py -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+.venv\Scripts\python connectfour_studio.py
+```
 
 ## Keyboard
 
