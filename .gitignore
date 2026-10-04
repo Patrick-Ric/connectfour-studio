@@ -19,3 +19,6 @@ data/lang.cfg
 
 # Env (lokal, nie committen)
 .env*
+
+# Build artifacts (released via GitHub Releases, not git)
+*.AppImage

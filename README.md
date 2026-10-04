@@ -21,9 +21,21 @@ analyze positions, and run engine-vs-engine matches.
 
 ## Install & Start
 
-Requires 64-bit Python 3.10–3.14 **with Tkinter** (`bitbully` ships
-wheels for CPython 3.10–3.14 on 64-bit Windows/Linux; other
-platforms need a C++ build from source).
+[⬇ Download for Linux (AppImage, no install needed)](https://github.com/Patrick-Ric/connectfour-studio/releases/latest)
+
+Make it executable and start it:
+
+```bash
+chmod +x ConnectFour_Studio-x86_64.AppImage
+./ConnectFour_Studio-x86_64.AppImage
+```
+
+Requires glibc ≥ 2.28 (Ubuntu 20.04+, Debian 10+, Fedora 29+); install
+libfuse2 if needed.
+
+Or install from source. Requires 64-bit Python 3.10–3.14 **with Tkinter**
+(`bitbully` ships wheels for CPython 3.10–3.14 on 64-bit Windows/Linux;
+other platforms need a C++ build from source).
 
 - **Windows:** the python.org installer includes Tkinter by default —
   keep `tcl/tk and IDLE` checked during installation. No extra step needed.
