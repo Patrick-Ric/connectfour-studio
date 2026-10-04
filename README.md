@@ -16,7 +16,7 @@ analyze positions, and run engine-vs-engine matches.
 - 14 computer levels (1 Random … 14 Perfect) + 0 Loser joke level + 2 custom user levels with own (p, s, w)
 - Live evaluation: winner + stones to the end, nodes, time, book/computed source
 - Modes: Human-Computer, 2 players, Computer-Computer playout, Computer-Computer match
-- 20 stone sets (mouse wheel / PageUp-PageDown to browse)
+- 20 boards with matching stones (mouse wheel / PageUp-PageDown to browse)
 - Session score vs. the engine, quicksave, random positions, help in 6 languages (German, English, French, Spanish, Dutch, Italian)
 
 ## Install & Start
@@ -64,7 +64,7 @@ py -m venv .venv
 ## Keyboard
 
 - `1-7` play column, `Arrow Left/Right` undo/redo, `Arrow Up/Down` first/last move
-- `PageUp/PageDown` or mouse wheel over the board browse stone sets
+- `PageUp/PageDown` or mouse wheel over the board browse boards
 - `F1` help, `F3/F4` quick save/load, `F5` engine move, `F6` evaluate all moves, `F7` permanent analysis
 
 ## Project layout
