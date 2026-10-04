@@ -11,7 +11,7 @@ analyze positions, and run engine-vs-engine matches.
 
 ## Features
 
-- 14 computer levels (1 Zufall … 14 Perfekt) + 0 Loser joke level + 2 custom user levels with own (p, s, w)
+- 14 computer levels (1 Random … 14 Perfect) + 0 Loser joke level + 2 custom user levels with own (p, s, w)
 - Live evaluation: winner + stones to the end, nodes, time, book/computed source
 - Modes: Human-Computer, 2 players, Computer-Computer playout, Computer-Computer match
 - 20 stone sets (mouse wheel / PageUp-PageDown to browse)
