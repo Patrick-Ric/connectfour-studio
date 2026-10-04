@@ -21,7 +21,7 @@ analyze positions, and run engine-vs-engine matches.
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install bitbully bitbully-databases pillow
+.venv/bin/pip install -r requirements.txt
 .venv/bin/python connectfour_studio.py
 ```
 
