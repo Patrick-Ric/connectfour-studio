@@ -17,7 +17,7 @@ analyze positions, and run engine-vs-engine matches.
 - Live evaluation: winner + stones to the end, nodes, time, book/computed source
 - Modes: Human-Computer, 2 players, Computer-Computer playout, Computer-Computer match
 - 20 boards with matching stones (mouse wheel / PageUp-PageDown to browse)
-- Session score vs. the engine, quicksave, random positions, help in 6 languages (German, English, French, Spanish, Dutch, Italian)
+- Session score vs. the engine, quicksave, random positions, GUI and help in 6 languages (German, English, French, Spanish, Dutch, Italian)
 
 ## Install & Start
 
