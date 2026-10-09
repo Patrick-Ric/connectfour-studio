@@ -179,6 +179,22 @@ import bitbully as bb
 import cfs_sets
 import cfs_levels
 import cfs_lang
+import cfs_minibook
+
+# Pseudo-Tiefen fuer _last_depth/Anzeige (10/2026, gleich in Tk, Qt, Android):
+DEPTH_BOOK = -2       # Iteration endet, weil jede Variante das 12-ply-Buch erreicht
+DEPTH_MINIBOOK = -3   # Werte aus dem Mini-Buch "Buch 2d" (0-2 Steine, keine Suche)
+
+
+def _depth_label(depth):
+    """'Tiefe'-Text: Zahl, 'Voll' (-1), 'Buch 12d' oder 'Buch 2d'."""
+    if depth == -1:
+        return cfs_lang.t("depth_full")
+    if depth == DEPTH_BOOK:
+        return f"{cfs_lang.t('depth_book')} 12d"
+    if depth == DEPTH_MINIBOOK:
+        return f"{cfs_lang.t('depth_book')} {cfs_minibook.SHORT}"
+    return str(depth)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE, "data")
@@ -2284,7 +2300,8 @@ class ConnectFourStudio(tk.Tk):
         for col, s in scores.items():
             with self._solver_lock:
                 dist[col] = bb.BitBully.score_to_moves_left(s, board)
-        if len(set(dist.values())) <= 1:
+        exact_already = getattr(self, "_last_depth", None) in (-1, DEPTH_BOOK, DEPTH_MINIBOOK)
+        if len(set(dist.values())) <= 1 and not exact_already:
             # Alle Distanzen identisch: einmal exakt nachrechnen (mit
             # Distanz-Buch Millisekunden), statt uniform zu wuerfeln.
             try:
@@ -2445,6 +2462,32 @@ class ConnectFourStudio(tk.Tk):
         scores, nodes = {}, 0
         pending_cb = []
         stop = abort if abort is not None else (lambda: self.cancel)
+        # Bis 2 Steine: exakte Werte aus dem Mini-Buch "Buch 2d", keine Suche.
+        mini = cfs_minibook.scores(board)
+        if mini is not None:
+            try:
+                if stop():
+                    return scores, nodes
+            except Exception:
+                pass
+            self._last_depth = DEPTH_MINIBOOK
+            if on_progress is not None:
+                try:
+                    on_progress(DEPTH_MINIBOOK, dict(mini), 0, time.time() - t0)
+                except Exception:
+                    import traceback as _tbm
+                    _tbm.print_exc()
+            return dict(mini), 0
+        # Unter 12 Steinen erreicht jede Variante ab Tiefe 12 - Steine das
+        # 12-ply-Buch: ab dort sind die Werte exakt, tiefere Stufen (bis 20
+        # und Voll) wiederholten nur dieselbe Suche -> dort abbrechen.
+        book_depth = None
+        try:
+            stones = 42 - board.moves_left()
+            if self.agent.is_book_loaded() and stones < self.BOOK_HORIZON:
+                book_depth = self.BOOK_HORIZON - stones
+        except Exception:
+            book_depth = None
         with self._solver_lock:
             self.agent.reset_node_counter()
             # TT frisch: erste Stufe (Tiefe 4) braucht sonst Altlast und
@@ -2466,15 +2509,18 @@ class ConnectFourStudio(tk.Tk):
                 except Exception:
                     break
                 scores, nodes = dict(part), self.agent.get_node_counter()
-                self._last_depth = depth
+                book_done = (book_depth is not None and depth != -1
+                             and depth >= book_depth)
+                shown = DEPTH_BOOK if book_done else depth
+                self._last_depth = shown
                 dt = time.time() - t0
                 # GUI-Throttle: max. 1 Callback/200ms + immer die letzte Stufe.
                 # Nur vormerken; abgesetzt wird NACH dem Lock (kein Deadlock).
-                if on_progress is not None and (depth == depths[-1] or
+                if on_progress is not None and (depth == depths[-1] or book_done or
                                                  dt - last_cb[0] >= 0.2):
                     last_cb[0] = dt
-                    pending_cb.append((depth, dict(scores), nodes, dt))
-                if depth == -1:
+                    pending_cb.append((shown, dict(scores), nodes, dt))
+                if depth == -1 or book_done:
                     break
                 try:
                     if stop():
@@ -2516,7 +2562,7 @@ class ConnectFourStudio(tk.Tk):
                 best = max(scores.values())
             except Exception:
                 return
-            label = cfs_lang.t("depth_full") if depth == -1 else str(depth)
+            label = _depth_label(depth)
             ms_stufe = getattr(self, "_match_stufe", None)
             try:
                 if ms_stufe == "mensch" or ms_stufe in ("user1", "user2", "verlierer"):
@@ -3137,7 +3183,7 @@ class ConnectFourStudio(tk.Tk):
         Iteration: _last_depth aus _iterative_scores. Buch: Horizont, danach
         weiter iterativ (Zahl statt 'Suche')."""
         if getattr(self, "_last_depth", None) is not None:
-            return cfs_lang.t("depth_full") if self._last_depth == -1 else str(self._last_depth)
+            return _depth_label(self._last_depth)
         n = len(self.history)
         if not self.agent.is_book_loaded():
             return "\u2013"
@@ -3147,7 +3193,9 @@ class ConnectFourStudio(tk.Tk):
 
     def _book_label(self):
         """Quelle-Anzeige: 'Buch 12d' solange die Stellung im Buch liegt
-        (bis 12 Steine), danach 'berechnet'."""
+        (bis 12 Steine), danach 'berechnet'; Mini-Buch: 'Buch 2d'."""
+        if getattr(self, "_last_depth", None) == DEPTH_MINIBOOK:
+            return f"{cfs_lang.t('book_from_book')} {cfs_minibook.SHORT}"
         n = len(self.history)
         if not self.agent.is_book_loaded():
             return "\u2013"
@@ -3307,7 +3355,7 @@ class ConnectFourStudio(tk.Tk):
             return
         self._show_scores(scores, nodes, dt, live_depth=depth)
         try:
-            label = cfs_lang.t("depth_full") if depth == -1 else str(depth)
+            label = _depth_label(depth)
             self.info_vars["Tiefe"].set(f"{label}...")
         except Exception:
             pass

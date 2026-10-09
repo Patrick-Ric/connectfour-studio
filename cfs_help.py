@@ -1019,7 +1019,7 @@ HELP_CONTENT = {
                  " der Engine (im Turniermodus die Stufe der ziehenden Farbe)."),
         ("para", ("Tiefe: ", "b"), "Zuletzt erzielte Suchtiefe in Halbzügen (Ply). ",
                  ("Voll: ", "b"), "Vollständige Berechnung bis zum rechnerischen Spielende. ",
-                 ("Buch 12d: ", "b"), "Stellung ist im Eröffnungsbuch hinterlegt. "
+                 ("Buch 12d: ", "b"), "Bis zu 12 Steinen endet die Suche, sobald jede Variante das Eröffnungsbuch erreicht – die Werte sind exakt. ", ("Buch 2d: ", "b"), "Stellung mit höchstens zwei Steinen: exakte Werte aus dem eingebauten Mini-Buch, ganz ohne Suche. "
                  "Ein angehängtes Auslassungszeichen (z. B. „8...“) visualisiert eine noch "
                  "laufende Vertiefung. Ein Gedankenstrich (–) bedeutet, dass noch keine "
                  "Berechnung vorliegt."),
@@ -1578,7 +1578,7 @@ HELP_CONTENT = {
                  " of the engine (in tournament mode, the level of the color to move)."),
         ("para", ("Depth: ", "b"), "Most recently reached search depth in plies. ",
                  ("Full: ", "b"), "Complete calculation to the end of the game. ",
-                 ("Book 12d: ", "b"), "The position is stored in the opening book. "
+                 ("Book 12d: ", "b"), "Up to 12 stones the search stops as soon as every line reaches the opening book – the values are exact. ", ("Book 2d: ", "b"), "Position with at most two stones: exact values from the built-in mini book, without any search. "
                  "A trailing ellipsis (e.g. “8...”) shows a deepening that is still "
                  "running. A dash (–) means that no calculation is available yet."),
         ("para", ("Value: ", "b"), "Theoretical evaluation of the latest move in "
@@ -2137,7 +2137,7 @@ HELP_CONTENT = {
                  " activo del motor (en el modo de torneo, el nivel del color al que le toca)."),
         ("para", ("Profundidad: ", "b"), "Última profundidad de búsqueda alcanzada, en semijugadas. ",
                  ("Completa: ", "b"), "Cálculo completo hasta el final de la partida. ",
-                 ("Libro 12d: ", "b"), "La posición está guardada en el libro de aperturas. "
+                 ("Libro 12d: ", "b"), "Hasta 12 fichas la búsqueda termina en cuanto cada variante alcanza el libro de aperturas; los valores son exactos. ", ("Libro 2d: ", "b"), "Posición con dos fichas como máximo: valores exactos del minilibro integrado, sin ninguna búsqueda. "
                  "Unos puntos suspensivos al final (p. ej. “8...”) indican una profundización que "
                  "aún está en curso. Un guion (–) significa que todavía no hay ningún cálculo."),
         ("para", ("Valor: ", "b"), "Evaluación teórica de la última jugada en "
@@ -2696,7 +2696,7 @@ HELP_CONTENT = {
                  " actif du moteur (en mode tournoi, le niveau de la couleur au trait)."),
         ("para", ("Profondeur : ", "b"), "Dernière profondeur de recherche atteinte, en demi-coups. ",
                  ("Complète : ", "b"), "Calcul complet jusqu'à la fin de la partie. ",
-                 ("Livre 12d : ", "b"), "La position est enregistrée dans le livre d'ouvertures. "
+                 ("Livre 12d : ", "b"), "Jusqu'à 12 pions, la recherche s'arrête dès que chaque variante atteint le livre d'ouvertures ; les valeurs sont exactes. ", ("Livre 2d : ", "b"), "Position d'au plus deux pions : valeurs exactes issues du mini-livre intégré, sans aucune recherche. "
                  "Des points de suspension à la fin (p. ex. « 8... ») indiquent un approfondissement "
                  "encore en cours. Un tiret (–) signifie qu'aucun calcul n'est encore disponible."),
         ("para", ("Valeur : ", "b"), "Évaluation théorique du dernier coup en "
@@ -3254,7 +3254,7 @@ HELP_CONTENT = {
                  " van de engine (in de toernooimodus het niveau van de kleur die aan zet is)."),
         ("para", ("Diepte: ", "b"), "Laatst bereikte zoekdiepte in ply. ",
                  ("Volledig: ", "b"), "Volledige berekening tot het einde van het spel. ",
-                 ("Boek 12d: ", "b"), "De stelling staat in het openingsboek. "
+                 ("Boek 12d: ", "b"), "Tot 12 stenen stopt het zoeken zodra elke variant het openingsboek bereikt – de waarden zijn exact. ", ("Boek 2d: ", "b"), "Stelling met hoogstens twee stenen: exacte waarden uit het ingebouwde miniboek, zonder te zoeken. "
                  "Een afsluitend beletselteken (bijv. “8...”) toont een verdieping die nog "
                  "loopt. Een streepje (–) betekent dat er nog geen berekening beschikbaar is."),
         ("para", ("Waarde: ", "b"), "Theoretische beoordeling van de laatste zet in "
@@ -3938,7 +3938,9 @@ HELP_CONTENT = {
                  ("Completa: ", "b"),
                  "Calcolo completo fino alla fine della partita. ",
                  ("Libro 12d: ", "b"),
-                 "La posizione è registrata nel libro di aperture. Puntini di sospensione finali (p. es. “8...”) mostrano un approfondimento ancora in corso. Un trattino (–) significa "
+                 "Fino a 12 pedine la ricerca si ferma non appena ogni variante raggiunge il libro di aperture: i valori sono esatti. ",
+                 ("Libro 2d: ", "b"),
+                 "Posizione con al massimo due pedine: valori esatti dal mini-libro integrato, senza alcuna ricerca. Puntini di sospensione finali (p. es. “8...”) mostrano un approfondimento ancora in corso. Un trattino (–) significa "
                  "che non è ancora disponibile alcun calcolo."),
         ("para",
                  ("Valore: ", "b"),
